@@ -1,0 +1,19 @@
+
+from typing import List
+
+
+class Solution:
+    def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        l = r = ret = cur_sum = 0
+        stash = set()
+        while r < len(nums):
+            while nums[r] in stash:
+                cur_sum -= nums[l]
+                stash.remove(nums[l])
+                l += 1
+            stash.add(nums[r])
+            cur_sum += nums[r]
+            r += 1
+            ret = max(ret, cur_sum)
+        return ret
+
